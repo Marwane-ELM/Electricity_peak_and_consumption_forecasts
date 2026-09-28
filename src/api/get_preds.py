@@ -228,17 +228,29 @@ def get_peak():
                 # Trend informations
                 # 3 different levels of electricity demand : Low, Medium, Hard
                 # We fit a function on our predictions to get the trend of the electricity consumption
-                model = LinearRegression()
-                model.fit(x, y)
-        
-        
-                trend = model.predict(x)
-                slope = model.coef_[0]
-        
+                #model = LinearRegression()
+                #model.fit(x, y)
+                #trend = model.predict(x)
+                #slope = model.coef_[0]
+
+                df_pred = df_pred.sort_values(by="time").reset_index(drop=True)
+
+                if len(df_pred) > 1:
+                    first_pred = df_pred["pred"].iloc[0]
+                    last_pred = df_pred["pred"].iloc[-1]
+                    slope = (last_pred - first_pred) / (len(df_pred) - 1)
+                else:
+                    slope = 0
+
+                
                 elec_demand_infos = tuple()
-                if slope > 3000:
+
+                # There are 2 classes of attributes.
+                # 1. Consumption increasing/decreasing/stable (managed in streamlit app.py)
+                # 2. How much it's increasing/deacreasing/stable (High, medium, Low)
+                if abs(slope) > 3000:
                     elec_demand_infos = (slope, "High")
-                elif slope > 1500:
+                elif abs(slope) > 1500:
                     elec_demand_infos = (slope, "Medium")
                 else:
                     elec_demand_infos = (slope, "Low")

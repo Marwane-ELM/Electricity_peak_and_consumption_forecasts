@@ -60,7 +60,7 @@ The project is made of several parts that work together:
 
 The `/demand` endpoint of the API doesn't just return raw numbers, it also runs a quick analysis on the current forecasts, shown on the summary cards in the app.
 
-- **Trend** - A simple **Linear Regression** is fitted on the upcoming predictions (prediction index as X, predicted consumption as Y). The slope of this line tells us how fast consumption is expected to rise or fall, and is translated into a **Low / Medium / High** demand level using fixed thresholds.
+- **Trend** - We compute the slope of the trend (by using the endpoints values of our predictions). The slope of this line tells us how fast consumption is expected to rise or fall, and is translated into a **Slow / Moderate / Fast** demand level using fixed thresholds.
 - **Spike detection** - The API looks at the difference between each pair of consecutive predicted values (starting from the last known historical point). If the biggest jump exceeds a fixed threshold, it's flagged as a **consumption spike**, along with the value and the time it's expected to happen.
 - **Highest predicted value** - The API compares the maximum value among the upcoming predictions to the last known historical value, and returns whether it represents an increase, along with the percentage change.
 

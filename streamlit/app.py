@@ -1770,13 +1770,13 @@ if validation:
         trend_class = "trend-neutral"
         trend_badge = "Incomplete data"
 
-    elif slope_number > 0:
+    elif slope_number > 200:
         trend_title = "Consumption increasing"
         trend_icon = "↗"
         trend_class = "trend-up"
         trend_badge = "Upward trend"
 
-    elif slope_number < 0:
+    elif slope_number < -200:
         trend_title = "Consumption decreasing"
         trend_icon = "↘"
         trend_class = "trend-down"
