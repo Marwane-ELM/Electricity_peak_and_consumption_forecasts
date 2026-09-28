@@ -35,7 +35,7 @@ You can try it live at **[pikelek.com](https://pikelek.com)**.
 
 I wanted to build and manage a complete AI project, from the raw data to a real online product, in a field I really like, which is **energy**.
 
-I was inspired by the tool made by <a href="[url](https://www.rte-france.com/donnees-publications/eco2mix-donnees-temps-reel/consommation-france)">**RTE France (éCO2mix - La consommation d'électricité en France)**</a>, which predicts the electricity consumption for the day. My goal was to build something similar, but focused on **short-term forecasting**: predicting the next 5 hours, in 30-minute steps.
+I was inspired by the tool made by **[RTE France (éCO2mix - La consommation d'électricité en France)](https://www.rte-france.com/donnees-publications/eco2mix-donnees-temps-reel/consommation-france)**, which predicts the electricity consumption for the day. My goal was to build something similar, but focused on **short-term forecasting**: predicting the next 5 hours, in 30-minute steps.
 
 This project was also a way to go further than "just training a model in a notebook." I wanted to learn how to take a model from training to a **real, working, online application**, the way it would be done in a professional environment: with an API, a database, containers, and a server running 24/7.
 
