@@ -38,8 +38,6 @@ services:
             context: .
             dockerfile: ./streamlit/Dockerfile
         container_name: streamlit_container
-        ports: 
-            - "8501:8501"
         depends_on:
             - api
             - postgresql
