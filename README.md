@@ -108,8 +108,8 @@ Just go to **[pikelek.com](https://pikelek.com)** and see the live forecasts dir
 ### 2. Locally, with Docker
 ```bash
 # Clone the repository
-git clone <repo-url>
-cd <repo-folder>
+git clone https://github.com/Marwane-ELM/Electricity_peak_and_consumption_forecasts.git
+cd Electricity_peak_and_consumption_forecasts
 
 # Build and start all the containers
 docker compose up --build

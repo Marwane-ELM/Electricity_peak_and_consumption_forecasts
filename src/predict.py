@@ -212,7 +212,7 @@ def predict():
         	"latitude": v["latitude"],
         	"longitude": v["longitude"],
         	"hourly": ["temperature_2m", "relative_humidity_2m", "rain", "surface_pressure", "wind_speed_10m"],
-        	"timezone": "Europe/London",
+        	"timezone": "Europe/Paris",
         	"past_days": 7,
         	"forecast_days": 2,
         }
