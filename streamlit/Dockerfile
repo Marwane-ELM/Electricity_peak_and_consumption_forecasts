@@ -8,6 +8,7 @@ COPY streamlit/rq_streamlit.txt .
 RUN pip install --no-cache-dir -r rq_streamlit.txt
 
 COPY streamlit/ /app/streamlit/
+COPY streamlit/.streamlit/ /app/.streamlit/
 
 EXPOSE 8501
 

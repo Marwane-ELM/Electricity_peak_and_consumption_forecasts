@@ -33,7 +33,7 @@ services:
 
     
     streamlit:
-        image: marwaneelm/pikelek-streamlit:v1
+        image: marwaneelm/pikelek-streamlit:v2
         build: 
             context: .
             dockerfile: ./streamlit/Dockerfile
