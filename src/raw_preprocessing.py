@@ -16,7 +16,7 @@ def conso_preprocess(PATH_CONSO):
     """
 
     conso = pd.DataFrame() 
-    for i in range(1, 9):
+    for i in range(0, 9):
         path_file = PATH_CONSO / f"conso_energie_202{i}.zip"
         if path_file.exists():
             df = pd.read_csv(path_file, compression='zip', sep="\t", encoding="latin1", low_memory=False)
