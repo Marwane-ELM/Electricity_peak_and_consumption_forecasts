@@ -1,4 +1,5 @@
 import numpy as np
+import time
 import requests
 import pandas as pd
 import pytz
@@ -168,8 +169,8 @@ def predict():
 
     # Open-Meteo 
     # Setup the Open-Meteo API client with cache and retry on error
-    cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
-    retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
+    cache_session = requests_cache.CachedSession('.cache', expire_after = 3600, stale_if_error=True, status_to_retry=(429, 500, 502, 503, 504))
+    retry_session = retry(cache_session, retries = 5, backoff_factor = 1)
     openmeteo = openmeteo_requests.Client(session = retry_session)
     
     # Make sure all required weather variables are listed here
@@ -205,28 +206,24 @@ def predict():
 
 
     print("retreiving data from Open-Meteo API")
-    for k, v in lat_long.items():
-    
-        # Calling the API for our department
-        params = {
-        	"latitude": v["latitude"],
-        	"longitude": v["longitude"],
-        	"hourly": ["temperature_2m", "relative_humidity_2m", "rain", "surface_pressure", "wind_speed_10m"],
-        	"timezone": "Europe/Paris",
-        	"past_days": 7,
-        	"forecast_days": 2,
-        }
 
+    params = {
+        "latitude":  [v["latitude"]  for v in lat_long.values()],
+        "longitude": [v["longitude"] for v in lat_long.values()],
+        "hourly": ["temperature_2m", "relative_humidity_2m", "rain", "surface_pressure", "wind_speed_10m"],
+        "timezone": "Europe/Paris",
+        "past_days": 7,
+        "forecast_days": 2,
+    }
+    try:
+        responses = openmeteo.weather_api(url, params=params)
+    except Exception as error:
+        print(f"Open-Meteo failed: {error}")
+        return (False, f"Open-Meteo failed: {error}")
 
-        try:
-            responses = openmeteo.weather_api(url, params=params)
-        except Exception as error:
-            print(f"Open-Meteo failed for {v['ville']}: {error}")
-            return (False, f"Open-Meteo failed for {v['ville']}: {error}")
         
-        # Process first location. Add a for-loop for multiple locations or weather models
-        response = responses[0]
-    
+    for (k, v), response in zip(lat_long.items(), responses):    
+        
         # Process hourly data. The order of variables needs to be the same as requested.
         hourly = response.Hourly()
         hourly_temperature_2m = hourly.Variables(0).ValuesAsNumpy()

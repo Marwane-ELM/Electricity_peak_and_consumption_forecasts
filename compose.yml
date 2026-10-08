@@ -63,7 +63,7 @@ services:
 
 
     scheduler:
-        image: marwaneelm/pikelek-scheduler:v1
+        image: marwaneelm/pikelek-scheduler:v2
         build:
             context: .
             dockerfile: ./src/Dockerfile
